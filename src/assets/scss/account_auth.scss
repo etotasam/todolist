@@ -1,0 +1,109 @@
+@import "./variables";
+
+.auth {
+  width: 100%;
+  min-height: 100vh;
+  display:grid;
+  grid-template:
+  ".... .... ...."
+  ".... main ...." 450px
+  ".... .... ...."
+  /auto 350px auto;
+}
+.auth_container {
+  grid-area: main;
+  padding: 20px;
+  border: 1px solid map-get($colors, "dark_gray");
+}
+
+.auth_wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.auth_inner {
+  margin-top:25px;
+  position:relative;
+  border-bottom: 1px solid map-get($colors, "light_gray");
+
+  >input {
+    width: 100%;
+    padding: 5px;
+    border: none;
+    outline: none;
+    background: none;
+  }
+
+  >span::before {
+    content: attr(data-placeholder);
+    position: absolute;
+    top: 50%;
+    left: 5px;
+    color: map-get($colors, "light_gray");
+    pointer-events: none;
+    // z-index: -1;
+    transform: translateY(-50%);
+    transition: 0.5s;
+  }
+  >span::after {
+    content: "";
+    position: absolute;
+    bottom:-1px;
+    left:0;
+    width:0%;
+    height:1px;
+    background-color: map-get($colors, "dark_gray");
+    transition: 0.5s;
+  }
+
+  .not_empty + span::before {
+    top: -10px;
+    color: map-get($colors, "dark_gray");
+  }
+  .not_empty + span::after {
+    width: 100%;
+  }
+
+  .pass_verify + span::before {
+    color: map-get($colors, "quiet_green");
+  }
+
+  .pass_verify + span::after {
+    background-color: map-get($colors, "quiet_green");
+  }
+}
+
+
+
+
+.auth_send_btn {
+  color: white;
+  height: 30px;
+  margin-top: 35px;
+  background-color: rgb(220, 220, 220);
+  border: none;
+  pointer-events: none;
+  user-select: none;
+  transition: 0.5s;
+}
+.btn_click_permission {
+  pointer-events: auto;
+  background-color: rgb(145, 145, 145);
+  transition: 0.5s;
+}
+.login_btn_by_google {
+  display:flex;
+  align-items: center;
+  justify-content: center;
+  font-family: Arial;
+  font-size:15px;
+  margin-top: 10px;
+  height:25px;
+  border:none;
+  color:rgb(143, 143, 143);
+  background-color: rgb(240, 240, 240);
+  > img {
+    margin:0 15px;
+    width:20px;
+  }
+}

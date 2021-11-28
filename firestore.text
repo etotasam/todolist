@@ -1,0 +1,12 @@
+collection      document   field
+users      -    user-1
+                  └----   userID
+                          uid
+                          email
+                          created_at
+                          update_at
+                          todo_list
+                              └--     autoID
+                                        └--   textID
+                                              created_at
+                                              todo
