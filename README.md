@@ -1,21 +1,5 @@
-# todolist_by_vuejs
-```
-## Vue.jsを使ってToDoListを作った
-```
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+# Vue.jsを使ってtodoリストを作成しました
 
-### Compiles and minifies for production
-```
-npm run build
-```
+はじめて作ったモノです。
 
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+これだけの事なのにかなり大変だった…
