@@ -49,38 +49,14 @@ export default {
   methods: {
     ...mapMutations(["setIsLoading"]),
 
-    async getuserTextId() {
+    async getUserTextId() {
       const user = await this.queryGetUserDB.get();
       this.userClass.userPostNumber.setter = user.data().text_id;
     },
 
-    async updateIncrementID() {
-      const IncrementIDRef = this.db.collection("ID").doc("textIdCounter");
-      await IncrementIDRef.update({
-        textID: this.firebase.firestore.FieldValue.increment(1),
-      });
-    },
-
-    async getIncrementID() {
-      const getIDRef = await this.db
-        .collection("ID")
-        .doc("textIdCounter")
-        .get();
-      return getIDRef.data().textID;
-    },
-
-    async incrementTextId() {
-      const user = await this.db
-        .collection("users")
-        .doc(this.userClass.userInfo.uid);
-      await user.update({
-        text_id: this.firebase.firestore.FieldValue.increment(1),
-      });
-    },
-
-    // 読み込み時に実行される.onSnapshotの中で使うモジュール関数郡
-    //.onSnapshotの中で使う関数
-    //取得したsnapshotのsourceがServerかLocalかで追加されたデータかどうかを判断している。
+    //? 読み込み時に実行される.onSnapshotの中で使うモジュール関数郡
+    //? .onSnapshotの中で使う関数
+    //? 取得したsnapshotのsourceがServerかLocalかで追加されたデータかどうかを判断している。
     checkingSource(
       snapshot,
       caseLocalCallback,
@@ -96,8 +72,8 @@ export default {
       }
     },
 
-    //.onSnapshotの中で使う関数
-    //新しく追加されたデータ(soruceがLocal)をToTodosArray配列の先頭に追加
+    //? .onSnapshotの中で使う関数
+    //? 新しく追加されたデータ(soruceがLocal)をToTodosArray配列の先頭に追加
     newTodoAddToTodosArray(snapshot) {
       snapshot.forEach((doc) => {
         this.checkingSource(doc, (doc) => {
@@ -111,8 +87,8 @@ export default {
       });
     },
 
-    //.onSnapshotの中で使う関数
-    //firesoreから取得したデータ(sourceがServer)をToTodosArray配列に追加
+    //? .onSnapshotの中で使う関数
+    //? firesoreから取得したデータをToTodosArray配列に追加
     resourceDataPushToTodosArray(snapshot) {
       //TodoListを毎回初期化
       this.userClass.modelsTodoList = [];
@@ -123,11 +99,8 @@ export default {
       });
     },
 
-    onlyReturnFunc() {
-      return;
-    },
-    //ページ読み込み時に実行
-    //snapshotをとって監視して、データが追加されたら変更を反映
+    //? ページ読み込み時に実行
+    //? snapshotをとって監視して、データが追加されたら変更を反映
     async getToDoListSnapshot() {
       await this.queryGetUserDB
         .collection("todo_list")
@@ -148,7 +121,7 @@ export default {
 
     async renderToDoList() {
       await this.getToDoListSnapshot();
-      this.getuserTextId();
+      this.getUserTextId();
     },
   },
 
@@ -158,11 +131,6 @@ export default {
   },
 };
 </script>
-
-
-
-
-
 
 <style lang="scss" scoped>
 .global_container {

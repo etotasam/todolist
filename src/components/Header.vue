@@ -45,13 +45,25 @@ export default {
       this.$emit("modal-state", this.modal);
     },
 
+    async test() {
+      console.log(
+        this.db
+          .collection("users")
+          .doc(this.userClass.userInfo.uid)
+          .exist()
+      );
+    },
+
     async setToDo(ev) {
+      console.log("userClass", this.userClass);
+      //? 未入力は弾く
       if (this.inputToDo === "") {
         this.modal.comment = "未入力です";
         this.modal.show = true;
         this.modalState();
         return;
       }
+      //? 文字数制限
       if (this.inputToDo.length > 30) {
         this.modal.comment = "入力可能文字数は30文字までです。";
         this.modal.show = true;
@@ -59,10 +71,12 @@ export default {
         return;
       }
 
+      //? 現在のtodosをfirestoreから取得
       const todosArray = this.userClass.todoList.map((value) => {
         return value.text;
       });
 
+      //? todosにすでに含まれている場合ははじく
       if (todosArray.includes(this.inputToDo)) {
         this.modal.comment = `"${this.inputToDo}" はすでに含まれています`;
         this.modal.show = true;
@@ -71,8 +85,12 @@ export default {
       }
       ev.target.disabled = true;
 
-      this.userClass.userPostNumber.setter =
-        this.userClass.userPostNumber.getter + 1;
+      if (this.userClass.userPostNumber.getter) {
+        this.userClass.userPostNumber.setter =
+          this.userClass.userPostNumber.getter + 1;
+      } else {
+        this.userClass.userPostNumber.setter = 1;
+      }
       await this.queryToUsersDatabase.collection("todo_list").add({
         text_id: this.userClass.userPostNumber.getter,
         text: this.inputToDo,
@@ -200,7 +218,7 @@ export default {
   @media screen and (max-width: 600px) {
     position: static;
     text-align: center;
-    P {
+    p {
       position: static;
     }
   }
