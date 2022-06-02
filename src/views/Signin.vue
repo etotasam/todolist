@@ -29,15 +29,17 @@
           :tabindex="tabindex"
           :class="hasPassTheInputRule"
           @click="toSignin"
-        >signin</button>
+        >
+          signin
+        </button>
       </div>
-      <router-link :to="{name: 'Login'}">Login</router-link>
+      <router-link :to="{ name: 'Login' }">Login</router-link>
     </main>
   </div>
 </template>
 
 <script>
-import { mapMutations } from "vuex";
+import { mapMutations, mapGetters } from "vuex";
 import { LoginSigninMixin } from "./LoginSigninMIxin";
 
 export default {
@@ -45,8 +47,11 @@ export default {
   data() {
     return {
       isSigninError: false,
-      signinErrorMessage: "すでに登録されているメールアドレスです"
-    }
+      signinErrorMessage: "すでに登録されているメールアドレスです",
+    };
+  },
+  computed: {
+    ...mapGetters(["firebase", "db", "userClass"]),
   },
   methods: {
     ...mapMutations(["setIsLoading"]),
@@ -57,11 +62,20 @@ export default {
         this.setIsLoading(true);
         await this.firebase
           .auth()
-          .createUserWithEmailAndPassword(this.email, this.password)
+          .createUserWithEmailAndPassword(this.email, this.password);
         this.email = "";
         this.password = "";
-      }
-      catch {
+        //? firestore/users を作成
+        this.db
+          .collection("users")
+          .doc(this.userClass.userInfo.uid)
+          .set({
+            email: this.userClass.userInfo.email,
+            text_id: 0,
+            uid: this.userClass.userInfo.uid,
+            created_at: this.firebase.firestore.FieldValue.serverTimestamp(),
+          });
+      } catch {
         this.isSigninError = true;
         this.setIsLoading(false);
       }

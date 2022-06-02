@@ -5,18 +5,12 @@
     tag="ul"
     class="p-0 main-todo"
   >
-    <!-- <li
-      class="main-todo"
-      v-for="(todo, index) in this.userClass.todoList"
-      :key="todo.text_id"
-    > -->
     <Todo
       v-for="(todo, index) in this.userClass.todoList"
       :key="todo.text_id"
       :todo="todo"
       :index="index"
     />
-    <!-- </li> -->
   </transition-group>
 </template>
 
@@ -38,22 +32,16 @@ export default {
 @import "../assets/scss/_variables";
 
 .main-todo {
-  /* width: clamp(300px, 70vw, 800px); */
-  /* background-color: red; */
   padding-top: 10px;
-  // @media screen and (max-width: 600px) {
-  //   width: 100%;
-  // }
 }
 
-//cssアニメーション
+//? cssアニメーション
 .fade-enter,
 .fade-leave-to {
   opacity: 0;
 }
 .fade-enter-active {
   animation: fade-in 1s;
-  /* transition: opacity 0.5s; */
 }
 .fade-leave-active {
   position: absolute;

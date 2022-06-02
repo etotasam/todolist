@@ -25,7 +25,7 @@
           <span data-placeholder="Password"></span>
         </div>
         <button
-          class="auth_send_btn"
+          class="auth_send_btn login_btn"
           :tabindex="tabindex"
           :class="hasPassTheInputRule"
           @click="toLogin"
@@ -67,8 +67,6 @@ export default {
       this.firebase.auth().onAuthStateChanged((user) => {
         if (user) {
           this.setUserInfo(user);
-          // this.email = ""
-          // this.password = ""
         } else {
           this.setIsLoading(false);
         }
@@ -89,15 +87,21 @@ export default {
     },
     async setAuthDataWithGoogle() {
       const user = await this.firebase.auth().currentUser;
-      const testData = await this.db.collection("users").doc(user.uid).get();
+      const testData = await this.db
+        .collection("users")
+        .doc(user.uid)
+        .get();
       if (!testData.data()) {
         // this.setIsLoading(true)
-        this.db.collection("users").doc(user.uid).set({
-          text_id: 0,
-          uid: user.uid,
-          email: user.email,
-          created_at: this.firebase.firestore.FieldValue.serverTimestamp(),
-        });
+        this.db
+          .collection("users")
+          .doc(user.uid)
+          .set({
+            text_id: 0,
+            uid: user.uid,
+            email: user.email,
+            created_at: this.firebase.firestore.FieldValue.serverTimestamp(),
+          });
         // this.setAuthDataWithGoogle()
       }
     },
@@ -117,8 +121,8 @@ export default {
     },
   },
   created() {
-    this.email = "terakado@terakado.jp";
-    this.password = "terakado";
+    this.email = "test@test.com";
+    this.password = "testtest";
   },
   mounted() {
     // this.setIsLoading(false);

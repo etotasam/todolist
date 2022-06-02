@@ -3,12 +3,12 @@
 .auth {
   width: 100%;
   min-height: 100vh;
-  display:grid;
+  display: grid;
   grid-template:
-  ".... .... ...."
-  ".... main ...." 450px
-  ".... .... ...."
-  /auto 350px auto;
+    ".... .... ...."
+    ".... main ...." 450px
+    ".... .... ...."
+    / auto 350px auto;
 }
 .auth_container {
   grid-area: main;
@@ -22,11 +22,11 @@
 }
 
 .auth_inner {
-  margin-top:25px;
-  position:relative;
+  margin-top: 25px;
+  position: relative;
   border-bottom: 1px solid map-get($colors, "light_gray");
 
-  >input {
+  > input {
     width: 100%;
     padding: 5px;
     border: none;
@@ -34,7 +34,7 @@
     background: none;
   }
 
-  >span::before {
+  > span::before {
     content: attr(data-placeholder);
     position: absolute;
     top: 50%;
@@ -45,24 +45,32 @@
     transform: translateY(-50%);
     transition: 0.5s;
   }
-  >span::after {
+  > span::after {
     content: "";
     position: absolute;
-    bottom:-1px;
-    left:0;
-    width:0%;
-    height:1px;
+    bottom: -1px;
+    left: 0;
+    width: 0%;
+    height: 1px;
     background-color: map-get($colors, "dark_gray");
     transition: 0.5s;
   }
 
-  .not_empty + span::before {
+  .active + span::before {
     top: -10px;
     color: map-get($colors, "dark_gray");
   }
-  .not_empty + span::after {
+  .active + span::after {
     width: 100%;
   }
+
+  // .not_empty + span::before {
+  //   top: -10px;
+  //   color: map-get($colors, "dark_gray");
+  // }
+  // .not_empty + span::after {
+  //   width: 100%;
+  // }
 
   .pass_verify + span::before {
     color: map-get($colors, "quiet_green");
@@ -72,9 +80,6 @@
     background-color: map-get($colors, "quiet_green");
   }
 }
-
-
-
 
 .auth_send_btn {
   color: white;
@@ -88,22 +93,25 @@
 }
 .btn_click_permission {
   pointer-events: auto;
-  background-color: rgb(145, 145, 145);
+  background-color: map-get($colors, "quiet_green");
   transition: 0.5s;
 }
+.btn_click_permission:hover {
+  background-color: rgb(0, 152, 56);
+}
 .login_btn_by_google {
-  display:flex;
+  display: flex;
   align-items: center;
   justify-content: center;
   font-family: Arial;
-  font-size:15px;
+  font-size: 15px;
   margin-top: 10px;
-  height:25px;
-  border:none;
-  color:rgb(143, 143, 143);
+  height: 25px;
+  border: none;
+  color: rgb(143, 143, 143);
   background-color: rgb(240, 240, 240);
   > img {
-    margin:0 15px;
-    width:20px;
+    margin: 0 15px;
+    width: 20px;
   }
 }
