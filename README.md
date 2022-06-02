@@ -1,5 +1,3 @@
 # Vue.jsを使ってtodoリストを作成しました
 
-はじめて作ったモノです。
-
-これだけの事なのにかなり大変だった…
+[ToDoList](https://note-pad-fe946.web.app/)
